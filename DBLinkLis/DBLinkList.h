@@ -9,7 +9,7 @@ typedef int LinkListType; // 重命名数据类型
 // 声明双链表节点
 typedef struct Node
 {
-    int data; // 数据
+    LinkListType data; // 数据
     struct Node* next; // 链接下一个节点
     struct Node* prev; // 链接上一个节点
 }Node;
