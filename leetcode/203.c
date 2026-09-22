@@ -81,34 +81,71 @@ void Print(Node* head)
 //     return head;
 // }
 
+
+// 解法一
+// Node* Remove(Node* head, int val)
+// {
+//     Node* cur = head;
+//     Node* temp = NULL;
+//     // 删头节点
+//     while(cur != NULL && cur->data == val)
+//     {   
+//         cur = head->next; // 下一个节点
+//         free(head);
+//         head = cur; // 成为新头
+//     }
+
+//     // 删中间和尾节点
+//     while(cur && (temp = cur->next))
+//     {
+//        if(temp->data == val)
+//        {
+//             cur->next = temp->next;
+//             free(temp);
+//        }
+//        else
+//        {
+//             cur = cur -> next;
+//        }
+//     }
+
+//     return head;
+// }
+
+
+// 解法二
 Node* Remove(Node* head, int val)
 {
-    Node* cur = head;
-    Node* temp = NULL;
-    // 删头节点
-    while(cur != NULL && cur->data == val)
-    {   
-        cur = head->next; // 下一个节点
-        free(head);
-        head = cur; // 成为新头
-    }
+    // 创建虚拟头节点
+    Node* dummyHead = (Node*)malloc(sizeof(Node));
+    dummyHead->next = head;
+    Node* cur = dummyHead;
 
-    // 删中间和尾节点
-    while(cur && (temp = cur->next))
+    // 遍厉链表
+    while(cur->next != NULL)
     {
-       if(temp->data == val)
-       {
-            cur->next = temp->next;
+        // 是否删除该节点
+        if(val == cur->next->data)
+        {
+            Node* temp = cur->next; // 要删除的节点地址
+            cur->next = cur->next->next; // 下一个节点
+            // 删除节点
             free(temp);
-       }
-       else
-       {
-            cur = cur -> next;
-       }
+        }
+        else
+        {
+            cur = cur->next;
+        }
     }
 
+    // 跟新head指向
+    head = dummyHead->next;
+    // 释放虚拟节点
+    free(dummyHead);
     return head;
+
 }
+
 
 int main()
 {
@@ -126,7 +163,8 @@ int main()
     Print(head);
 
     printf("移除: ");
-    head = Remove(head, 6);
+    // head = Remove(head, 6);
+    head = Remove(NULL, 6);
     Print(head);
     return 0;
 }
@@ -135,7 +173,7 @@ int main()
 
 
 /*
-提交的代码
+提交的代码（方法1）
  struct ListNode* cur = head;
     struct ListNode* prev = NULL;
 
@@ -163,6 +201,41 @@ int main()
         cur = cur->next;
     }
 
+    return head;
+
+
+*/
+
+
+
+
+/*
+// 提交的代码（方法2）
+// 创建虚拟节点
+    struct ListNode* dummyHead = (struct ListNode*)malloc(sizeof(struct ListNode));
+    dummyHead->next = head;  // 虚拟头节点
+    struct ListNode* cur = dummyHead; // 临时变量遍历链表
+
+    while(cur->next != NULL)
+    {
+        // 是否要删除节点
+        if(val == cur->next->val)
+        {
+
+            struct ListNode* delNode = cur->next; // 保存要删除的节点
+            cur->next = cur->next->next; // 更新cur->next的指向
+            // 删除节点
+            free(delNode);
+        }
+        else
+        {
+            cur = cur->next;
+        }
+    }
+
+    // 重置head的指向
+    head = dummyHead->next;
+    free(dummyHead); // 释放虚拟的头节点
     return head;
 
 */
