@@ -5,12 +5,14 @@
 
 // 基于单链表实现的栈
 
+
 // 声明节点
 typedef struct Node
 {
     int data;
     struct Node* next;
 }Node;
+
 
 
 // 入栈/压栈

@@ -3,7 +3,7 @@
 // »Î’ª/—π’ª
 Node* Push(Node* top, int val)
 {
-   Node* newNode = (Node*)malloc(sizeof(Node));
+    Node* newNode = (Node*)malloc(sizeof(Node));
 
     if(NULL == newNode)
     {
