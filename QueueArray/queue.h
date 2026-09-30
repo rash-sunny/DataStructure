@@ -5,19 +5,28 @@
 
 typedef int QueueType;
 
+// 封装成结构体，可以简洁点
+typedef struct
+{
+    QueueType arr[SIZE];
+    int front;
+    int rear;
+}Queue;
+
+
 // 入队
-void Enqueue(QueueType* queue, int* front, int* rear, QueueType val);
+void Enqueue(Queue* queue, QueueType val);
 
 // 出队
-void Dequeue(int* front, int* rear);
+void Dequeue(Queue* queue);
 
 
 // 返回队首元素
-QueueType* Front(int* queue, int* front, int* rear);
+QueueType* Front(Queue* queue);
 
 // 检查队列是否为空
-int IsEmpty(int* front, int* rear);
+int IsEmpty(Queue* queue);
 
 
 // 检查队列是否已满
-int IsFull(int* rear);
+int IsFull(Queue* queue);
