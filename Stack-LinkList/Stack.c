@@ -1,9 +1,9 @@
 #include "Stack.h"
 
 // 入栈/压栈
-Node* Push(Node* top, int val)
+Stack* Push(Stack* top, StackType val)
 {
-    Node* newNode = (Node*)malloc(sizeof(Node));
+    Stack* newNode = (Stack*)malloc(sizeof(Stack));
 
     if(NULL == newNode)
     {
@@ -18,7 +18,7 @@ Node* Push(Node* top, int val)
 }
 
 // 出栈/弹出栈顶元素
-Node* Pop(Node* top)
+Stack* Pop(Stack* top)
 {
     // [1][2][3]
     if(NULL == top)
@@ -26,25 +26,26 @@ Node* Pop(Node* top)
         printf("栈中没有元素可以弹出!\n");
         return top; 
     }
-    Node* next = top->next;
+    Stack* next = top->next;
     free(top); // 释放栈顶元素
     return next;
 }
 
-// 返回栈顶元素
-Node* Top(Node* top)
+// 带回栈顶元素
+void Top(Stack* top, StackType* out)
 {
     if(NULL == top)
     {
         printf("栈中没有元素可以返回!\n");
-        return NULL;
+        return;
     }
-    return top;
+
+    *out = top->data; // 带回栈顶元素
 }
 
 // 栈是否为空
 // - 栈为空返回true,否则返回false
-bool IsEmpty(Node* top)
+bool IsEmpty(Stack* top)
 {
     if(top == NULL)
     {
@@ -57,7 +58,7 @@ bool IsEmpty(Node* top)
 }
 
 
-void Print(Node* top)
+void Print(Stack* top)
 {
     // [2][3][1]
     while(top)

@@ -5,26 +5,27 @@
 
 // 基于单链表实现的栈
 
+typedef int StackType;
 
 // 声明节点
 typedef struct Node
 {
-    int data;
+    StackType data;
     struct Node* next;
-}Node;
+}Stack;
 
 
 
 // 入栈/压栈
-Node* Push(Node* top, int val);
+Stack* Push(Stack* top, StackType val);
 
 // 出栈/弹出栈顶元素
-Node* Pop(Node* top);
+Stack* Pop(Stack* top);
 
-// 返回栈顶元素
-Node* Top(Node* top);
+// 带回栈顶元素
+void Top(Stack* top, StackType* out);
 
 // 栈是否为空
-bool IsEmpty(Node* top);
+bool IsEmpty(Stack* top);
 
-void Print(Node* top);
+void Print(Stack* top);
