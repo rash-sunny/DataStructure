@@ -50,23 +50,6 @@ void InsertFront(Node** Phead, ElementsType val)
 }
 
 
-// 尾插节点
-void InsertTail(Node** Phead, ElementsType val)
-{
-    // 如果实参传递的是NULL,assert会给出错误
-    assert(Phead);
-
-    Node* temp = Create(val); // 创建节点
-    // 找尾
-    for(; (*Phead) != NULL; Phead = &(*Phead)->Next) // Phead = &(*Phead)->Next 指向下一个链接口/节点
-    {
-        ;
-    }
-    *Phead = temp; 
-    // 非空链表走到这里，*Phead已经不是头节点了。而是尾节点的Next字段，直接把temp值放进这个字段里
-    // 空链表则是这就修改了实参的指向
-   
-}
 
 // 头删
 void DelFront(Node** Phead)
@@ -79,21 +62,6 @@ void DelFront(Node** Phead)
     // 指向下一个节点
     *Phead = (*Phead)->Next;
     free(del);
-}
-
-// 尾删
-void DelTail(Node** Phead)
-{
-    // 链表不能为空且头Phead也不能为空
-    // 不能反着写，如果Phead=NULL，会段错误
-    assert(Phead && *Phead);
-    // 找尾节点
-    for(;(*Phead)->Next != NULL; Phead = &(*Phead)->Next)
-    {
-        ;
-    }
-    free(*Phead);
-    *Phead = NULL;
 }
 
 
@@ -196,4 +164,112 @@ void DestroyList(Node** Phead)
         cur = next;
     }
     *Phead = NULL;
+}
+
+
+
+
+/*
+
+
+// 尾插节点
+void InsertTail(Node** Phead, ElementsType val)
+{
+    // 如果实参传递的是NULL,assert会给出错误
+    assert(Phead);
+
+    Node* temp = Create(val); // 创建节点
+    // 找尾
+    for(; (*Phead) != NULL; Phead = &(*Phead)->Next) // Phead = &(*Phead)->Next 指向下一个链接口/节点
+    {
+        ;
+    }
+    *Phead = temp; 
+    // 非空链表走到这里，*Phead已经不是头节点了。而是尾节点的Next字段，直接把temp值放进这个字段里
+    // 空链表则是这就修改了实参的指向
+   
+}
+
+
+
+// 尾删
+void DelTail(Node** Phead)
+{
+    // 链表不能为空且头Phead也不能为空
+    // 不能反着写，如果Phead=NULL，会段错误
+    assert(Phead && *Phead);
+    // 找尾节点
+    for(;(*Phead)->Next != NULL; Phead = &(*Phead)->Next)
+    {
+        ;
+    }
+    free(*Phead);
+    *Phead = NULL;
+}
+
+
+尾插和尾删这么写可读性并不高，还是用原来之前的写法更好阅读代码
+
+*/
+
+
+// 尾插
+void InsertTail(Node** Phead, ElementsType val)
+{
+    // Phead不能为NULL
+    assert(Phead);
+    // 创建节点
+    Node* newNode = Create(val);
+
+    Node* tail = *Phead;
+
+    // 空链表直接插入
+    if(NULL == *Phead)
+    {
+        *Phead = newNode;
+        return;
+    }
+
+    // 找到尾节点
+    for(; tail->Next != NULL; tail = tail->Next)
+    {
+        ;
+    }
+    tail->Next = newNode;
+
+}
+
+
+// 尾删
+void DelTail(Node** Phead)
+{
+    // Phead不能为NULL
+    assert(Phead);
+
+    // 空链表
+    if(NULL == *Phead)
+    {
+        
+        return;
+    }
+
+    // 只有一个节点
+    if(NULL == (*Phead)->Next)
+    {
+        free(*Phead);
+        *Phead = NULL;
+        return;
+    }
+
+    Node* tail = *Phead;
+    Node* temp = NULL;
+    // 找尾
+    for (; tail->Next != NULL; tail = tail->Next)
+    {   
+        // 尾节点的前一个节点
+        temp = tail;
+    }
+    free(tail);
+    temp->Next = NULL;
+    
 }

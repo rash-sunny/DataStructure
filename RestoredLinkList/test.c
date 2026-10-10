@@ -61,10 +61,34 @@ static void test01()
     DestroyList(&head);
 }
 
+static void test02()
+{
+    Node* head = NULL;
+    InsertTail(&head, 3);
+    InsertTail(&head, 1);
+    InsertTail(&head, 5);
+    InsertTail(&head, 4);
+    printf("尾删之前: ");
+    Print(head);
+    
+
+    printf("尾删之后: ");
+    DelTail(&head);
+    DelTail(&head);
+    DelTail(&head);
+    // DelTail(&head);
+    // DelTail(NULL);
+
+    Print(head);
+
+
+}
 
 int main()
 {
-    test01();
+    // test01();
+
+    test02();
     return 0;
 }
 
